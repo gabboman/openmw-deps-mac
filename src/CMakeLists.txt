@@ -86,12 +86,14 @@ set(BOOST_B2_ARGS
   "install"
   "link=shared"
   "threading=multi"
+  "toolset=clang"
+  "cxxflags='-stdlib=libc++'"
+  "linkflags='-stdlib=libc++'"
 )
 
 ExternalProject_Add(
   boost
   URL https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.bz2
-  URL_HASH SHA256=5721818253e6a0989583192f96782c4a98eb6204965316df9f5ad75819225ca9
   PATCH_COMMAND ${PATCH_WRAPPER} ${BOOST_DARWIN_PATCH}
 
   BUILD_IN_SOURCE 1
@@ -105,7 +107,6 @@ set(BULLET_CMAKE_ARGS "${SUBPROJECT_CMAKE_ARGS};-DBUILD_BULLET3=OFF;-DBUILD_BULL
 ExternalProject_Add(
   bullet
   URL https://github.com/bulletphysics/bullet3/archive/2.89.tar.gz
-  URL_HASH SHA256=621b36e91c0371933f3c2156db22c083383164881d2a6b84636759dc4cbb0bb8
 
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bullet
   CMAKE_ARGS ${BULLET_CMAKE_ARGS}
@@ -131,7 +132,6 @@ set(FFMPEG_CONFIGURE_ARGS
 ExternalProject_Add(
   ffmpeg
   URL https://ffmpeg.org/releases/ffmpeg-3.2.4.tar.bz2
-  URL_HASH SHA256=c0fa3593a2e9e96ace3c1757900094437ad96d1d6ca19f057c378b5f394496a4
 
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg
   CONFIGURE_COMMAND ${CONFIGURE_WRAPPER} ${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg/configure ${FFMPEG_CONFIGURE_ARGS}
@@ -141,7 +141,6 @@ ExternalProject_Add(
 ExternalProject_Add(
   libpng
   URL https://dl.bintray.com/homebrew/mirror/libpng-1.6.25.tar.xz
-  URL_HASH SHA256=09fe8d8341e8bfcfb3263100d9ac7ea2155b28dd8535f179111c1672ac8d8811
 
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libpng
   CONFIGURE_COMMAND ${CONFIGURE_WRAPPER} ${CMAKE_CURRENT_SOURCE_DIR}/libpng/configure --prefix=${CMAKE_INSTALL_PREFIX}
@@ -152,7 +151,6 @@ ExternalProject_Add(
   freetype2
   DEPENDS libpng
   URL http://download.savannah.gnu.org/releases/freetype/freetype-2.6.5.tar.bz2
-  URL_HASH SHA256=e20a6e1400798fd5e3d831dd821b61c35b1f9a6465d6b18a53a9df4cf441acf0
 
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/freetype2
   CONFIGURE_COMMAND ${CONFIGURE_WRAPPER} ${CMAKE_CURRENT_SOURCE_DIR}/freetype2/configure --prefix=${CMAKE_INSTALL_PREFIX} --without-harfbuzz
@@ -162,7 +160,6 @@ ExternalProject_Add(
 ExternalProject_Add(
   libjpeg
   URL http://www.ijg.org/files/jpegsrc.v8d.tar.gz
-  URL_HASH SHA256=00029b1473f0f0ea72fbca3230e8cb25797fbb27e58ae2e46bb8bf5a806fe0b3
 
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libjpeg
   CONFIGURE_COMMAND ${CONFIGURE_WRAPPER} ${CMAKE_CURRENT_SOURCE_DIR}/libjpeg/configure --prefix=${CMAKE_INSTALL_PREFIX}
@@ -174,7 +171,6 @@ set(LZ4_CMAKE_ARGS "${SUBPROJECT_CMAKE_ARGS};-DBUILD_STATIC_LIBS=ON;-DBUILD_SHAR
 ExternalProject_Add(
   lz4
   URL https://github.com/lz4/lz4/archive/v1.9.2.tar.gz
-  URL_HASH SHA256=658ba6191fa44c92280d4aa2c271b0f4fbc0e34d249578dd05e50e76d0e5efcc
 
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lz4
   SOURCE_SUBDIR contrib/cmake_unofficial
@@ -187,7 +183,6 @@ ExternalProject_Add(
   mygui
   DEPENDS freetype2
   URL https://github.com/MyGUI/mygui/archive/1c5a49c792c23d8b9b6760bb4877447c337e53f6.zip
-  URL_HASH SHA256=aadf20093b32fc4083fb0fc1142e901081ed8e016c910ef927f85058bf7d4b3e
 
   PATCH_COMMAND ${PATCH_WRAPPER} ${CMAKE_CURRENT_SOURCE_DIR}/mygui.patch
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mygui
@@ -196,8 +191,8 @@ ExternalProject_Add(
 
 ExternalProject_Add(
   SDL2
-  URL https://libsdl.org/release/SDL2-2.0.12.tar.gz
-  URL_HASH SHA256=349268f695c02efbc9b9148a70b85e58cefbbf704abd3e91be654db7f1e2c863
+  GIT_REPOSITORY git@github.com:libsdl-org/SDL.git
+  GIT_TAG main
 
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/SDL2
   CONFIGURE_COMMAND ${CONFIGURE_WRAPPER} ${CMAKE_CURRENT_SOURCE_DIR}/SDL2/configure --prefix=${CMAKE_INSTALL_PREFIX} --without-x
@@ -227,7 +222,6 @@ set(OSG_CMAKE_ARGS
 ExternalProject_Add(
   openscenegraph
   URL https://github.com/OpenMW/osg/archive/2b4c8e37268e595b82da4b9aadd5507852569b87.zip
-  URL_HASH SHA256=cffee367ee98f6a6953206893772ab99ef90cbfbda5e2ea3e2e135c22659eb01
   PATCH_COMMAND ${PATCH_WRAPPER} ${CMAKE_CURRENT_SOURCE_DIR}/osg.patch
   DEPENDS freetype2 libpng libjpeg
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openscenegraph
@@ -242,7 +236,6 @@ set(UNSHIELD_CMAKE_ARGS
 ExternalProject_Add(
   unshield
   URL https://github.com/twogood/unshield/archive/1.4.2.tar.gz
-  URL_HASH SHA256=5dd4ea0c7e97ad8e3677ff3a254b116df08a5d041c2df8859aad5c4f88d1f774
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/unshield
   CMAKE_ARGS ${UNSHIELD_CMAKE_ARGS}
 )
