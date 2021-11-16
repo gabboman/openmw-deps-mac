@@ -93,7 +93,7 @@ set(BOOST_B2_ARGS
 
 ExternalProject_Add(
   boost
-  URL https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.bz2
+  URL https://boostorg.jfrog.io/artifactory/main/release/1.66.0/source/boost_1_66_0.tar.bz2
   PATCH_COMMAND ${PATCH_WRAPPER} ${BOOST_DARWIN_PATCH}
 
   BUILD_IN_SOURCE 1
@@ -140,7 +140,7 @@ ExternalProject_Add(
 
 ExternalProject_Add(
   libpng
-  URL https://dl.bintray.com/homebrew/mirror/libpng-1.6.25.tar.xz
+  URL http://github.com/glennrp/libpng-releases/raw/master/libpng-1.6.34.tar.xz
 
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libpng
   CONFIGURE_COMMAND ${CONFIGURE_WRAPPER} ${CMAKE_CURRENT_SOURCE_DIR}/libpng/configure --prefix=${CMAKE_INSTALL_PREFIX}
@@ -150,7 +150,7 @@ ExternalProject_Add(
 ExternalProject_Add(
   freetype2
   DEPENDS libpng
-  URL http://download.savannah.gnu.org/releases/freetype/freetype-2.6.5.tar.bz2
+  URL https://ftp.osuosl.org/pub/blfs/conglomeration/freetype/freetype-2.6.5.tar.bz2
 
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/freetype2
   CONFIGURE_COMMAND ${CONFIGURE_WRAPPER} ${CMAKE_CURRENT_SOURCE_DIR}/freetype2/configure --prefix=${CMAKE_INSTALL_PREFIX} --without-harfbuzz
